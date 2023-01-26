@@ -1,7 +1,8 @@
 import Data from "../model/Data.js";
+import jwt from "jsonwebtoken";
 export const getAllDatas = async (req, res) => {
   try {
-    const data = await Data.find({});
+    const data = await Data.find({}).populate("link");
     res.status(200).send({
       success: true,
       data: data,
@@ -64,6 +65,32 @@ export const deleteData = async (req, res) => {
     res.status(200).send({
       success: true,
       data: data,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      data: error.message,
+    });
+  }
+};
+
+export const getMail = async (req, res) => {
+  try {
+    const data = await Data.findOne({
+      mail: req.body.mail,
+    });
+    const token = jwt.sign({ data }, "secret", { expiresIn: "99d" });
+    const Login = await data.comparePassword(req.body.password);
+    if (!Login) {
+      return res.status(400).send({
+        success: false,
+        error: "Invalid password",
+      });
+    }
+    res.status(200).send({
+      success: true,
+      data: data,
+      token: token,
     });
   } catch (error) {
     res.status(400).send({

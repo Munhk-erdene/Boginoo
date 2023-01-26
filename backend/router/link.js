@@ -5,12 +5,12 @@ import {
   link,
   updateLink,
   deleteLink,
-  findLink,
 } from "../controller/link.js";
+import { checkToken } from "../middleware/middleware.js";
 
 const routerTwo = express.Router();
-routerTwo.route("/").get(getAllLinks).post(createLink);
+
+routerTwo.route("/").get(getAllLinks).post(checkToken, createLink);
 routerTwo.route("/:id").delete(deleteLink).get(link);
-routerTwo.route("/:params").get(findLink);
 
 export default routerTwo;

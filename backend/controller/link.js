@@ -61,23 +61,6 @@ export const deleteLink = async (req, res) => {
     });
   }
 };
-export const findLink = async (req, res) => {
-  try {
-    const { params } = req.params;
-    const link = await Link.findOne({
-      shortLink: params,
-    });
-    res.status(200).send({
-      success: true,
-      link: link,
-    });
-  } catch (error) {
-    res.status(400).send({
-      success: false,
-      link: error.message,
-    });
-  }
-};
 
 export const link = async (req, res, next) => {
   try {

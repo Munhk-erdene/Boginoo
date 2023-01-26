@@ -5,12 +5,12 @@ import {
   data,
   updateData,
   deleteData,
+  getMail,
 } from "../controller/data.js";
-
 const router = express.Router();
-router.get("/", getAllDatas);
-router.post("/", createData);
-router.get("/:id", data);
-router.put("/:id", updateData);
-router.delete("/:id", deleteData);
+import { checkToken } from "../middleware/middleware.js";
+router.route("/").get(getAllDatas).post(getMail);
+router.route("/:id").get(checkToken, data).put(updateData).delete(deleteData);
+router.post("/Post", createData);
+
 export default router;

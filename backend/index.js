@@ -12,7 +12,6 @@ const corsOption = {
   origin: "http://localhost:3000",
   optionSuccesStatus: 200,
 };
-
 app.use(cors(corsOption));
 app.use(express.json());
 app.use("/Data", router);
