@@ -4,13 +4,14 @@ import {
   createData,
   data,
   updateData,
+  getUser,
   deleteData,
   getMail,
 } from "../controller/data.js";
+import { paginationFunction } from "../pagination/pagination.js";
 const router = express.Router();
-import { checkToken } from "../middleware/middleware.js";
-router.route("/").get(getAllDatas).post(getMail);
-router.route("/:id").get(checkToken, data).put(updateData).delete(deleteData);
+router.route("/").get(getAllDatas, paginationFunction).post(getMail);
 router.post("/Post", createData);
+router.route("/:id").get(getUser).put(updateData).delete(deleteData);
 
 export default router;

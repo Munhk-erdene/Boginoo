@@ -2,15 +2,15 @@ import { nanoid } from "nanoid";
 import Link from "../model/Link.js";
 export const getAllLinks = async (req, res) => {
   try {
-    const link = await Link.find({});
+    const link = await Link.find({}).skip(3);
     res.status(200).send({
       success: true,
-      link: link,
+      data: link,
     });
   } catch (error) {
     res.status(400).send({
       success: true,
-      link: error.message,
+      data: error.message,
     });
   }
 };
@@ -22,12 +22,12 @@ export const createLink = async (req, res) => {
     console.log("ajilla");
     res.status(200).send({
       success: true,
-      link: link,
+      data: link,
     });
   } catch (error) {
     res.status(400).send({
       success: false,
-      link: error.message,
+      data: error.message,
     });
   }
 };
@@ -42,7 +42,7 @@ export const updateLink = async (req, res) => {
   } catch (error) {
     res.status(400).send({
       success: false,
-      link: error.message,
+      data: error.message,
     });
   }
 };
@@ -52,12 +52,12 @@ export const deleteLink = async (req, res) => {
     const link = await Link.findByIdAndRemove({ _id: id });
     res.status(200).send({
       success: true,
-      link: link,
+      data: link,
     });
   } catch (error) {
     res.status(400).send({
       success: false,
-      link: error.message,
+      data: error.message,
     });
   }
 };
@@ -73,7 +73,7 @@ export const link = async (req, res, next) => {
   } catch (error) {
     res.status(400).send({
       success: false,
-      link: error.message,
+      data: error.message,
     });
   }
 };

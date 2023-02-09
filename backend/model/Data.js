@@ -12,6 +12,12 @@ const dataSchema = new mongoose.Schema(
     password: {
       type: String,
     },
+    role: {
+      type: String,
+      enum: ["normal", "admin"],
+      default: "normal",
+      required: [true],
+    },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

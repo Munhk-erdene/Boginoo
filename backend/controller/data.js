@@ -99,3 +99,33 @@ export const getMail = async (req, res) => {
     });
   }
 };
+export const getUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await Data.findById(id).populate("link");
+    res.status(200).send({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      data: error.message,
+    });
+  }
+};
+// export const HistoryFinder = async (req, res, next) => {
+//   const { id } = req.params;
+//   try {
+//     const user = await Data.findOne(id).limit(5);
+//     res.status(200).send({
+//       success: true,
+//       data: user,
+//     });
+//   } catch (error) {
+//     res.status(400).send({
+//       success: false,
+//       data: error.message,
+//     });
+//   }
+// };
